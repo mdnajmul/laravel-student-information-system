@@ -7,8 +7,10 @@ use App\Http\Requests\UpdateShiftRequest;
 use App\Repositories\ShiftRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\Shift;
 use Flash;
 use Response;
+use Redirect;
 
 class ShiftController extends AppBaseController
 {
@@ -29,10 +31,9 @@ class ShiftController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $shifts = $this->shiftRepository->all();
+        $data['shifts']=Shift::get()->toArray();
 
-        return view('shifts.index')
-            ->with('shifts', $shifts);
+        return view('shifts.index',$data);
     }
 
     /**
@@ -52,11 +53,14 @@ class ShiftController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateShiftRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        $shifts = array(
+            'shift' => $request->shift,
+            'shift_id' => $request->shift_id,
+        );
 
-        $shift = $this->shiftRepository->create($input);
+        Shift::create($shifts);
 
         Flash::success('Shift saved successfully.');
 
@@ -70,17 +74,17 @@ class ShiftController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show()
     {
-        $shift = $this->shiftRepository->find($id);
+        // $shift = $this->shiftRepository->find($id);
 
-        if (empty($shift)) {
-            Flash::error('Shift not found');
+        // if (empty($shift)) {
+        //     Flash::error('Shift not found');
 
-            return redirect(route('shifts.index'));
-        }
+        //     return redirect(route('shifts.index'));
+        // }
 
-        return view('shifts.show')->with('shift', $shift);
+        // return view('shifts.show')->with('shift', $shift);
     }
 
     /**
@@ -90,17 +94,17 @@ class ShiftController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $shift = $this->shiftRepository->find($id);
+        // $shift = $this->shiftRepository->find($id);
 
-        if (empty($shift)) {
-            Flash::error('Shift not found');
+        // if (empty($shift)) {
+        //     Flash::error('Shift not found');
 
-            return redirect(route('shifts.index'));
-        }
+        //     return redirect(route('shifts.index'));
+        // }
 
-        return view('shifts.edit')->with('shift', $shift);
+        // return view('shifts.edit')->with('shift', $shift);
     }
 
     /**
@@ -111,17 +115,20 @@ class ShiftController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateShiftRequest $request)
+    public function update(Request $request)
     {
-        $shift = $this->shiftRepository->find($id);
+        $shifts = array(
+            'shift' => $request->shift,
+            'shift_id' => $request->shift_id,
+        );
+        
+        Shift::findOrfail($request->shift_id)->update($shifts);
 
-        if (empty($shift)) {
+        if (empty($shifts)) {
             Flash::error('Shift not found');
 
             return redirect(route('shifts.index'));
         }
-
-        $shift = $this->shiftRepository->update($request->all(), $id);
 
         Flash::success('Shift updated successfully.');
 
@@ -137,17 +144,11 @@ class ShiftController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $shift = $this->shiftRepository->find($id);
-
-        if (empty($shift)) {
-            Flash::error('Shift not found');
-
-            return redirect(route('shifts.index'));
-        }
-
-        $this->shiftRepository->delete($id);
+        $delete_shift= Shift::findOrfail($request->shift_id);
+        
+        $delete_shift->delete();
 
         Flash::success('Shift deleted successfully.');
 

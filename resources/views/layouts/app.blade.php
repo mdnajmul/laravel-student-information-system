@@ -126,10 +126,10 @@
 <!-- Sparkline -->
 <script src="{{ url('assets/plugins/sparklines/sparkline.js') }}"></script>
 <!-- JQVMap -->
-<script src="{{ url('assets/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-<script src="{{ url('assets/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+<!-- <script src="{{ url('assets/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+<script src="{{ url('assets/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script> -->
 <!-- jQuery Knob Chart -->
-<script src="{{ url('assets/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+<!-- <script src="{{ url('assets/plugins/jquery-knob/jquery.knob.min.js') }}"></script> -->
 <!-- daterangepicker -->
 <script src="{{ url('assets/plugins/moment/moment.min.js') }}"></script>
 <script src="{{ url('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
@@ -144,7 +144,7 @@
 <!-- AdminLTE App -->
 <script src="{{ url('assets/dist/js/adminlte.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ url('assets/dist/js/pages/dashboard.js') }}"></script>
+<!-- <script src="{{ url('assets/dist/js/pages/dashboard.js') }}"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="{{ url('assets/dist/js/demo.js') }}"></script>
 <script src="{{ url('assets/js/custom.js') }}"></script>
@@ -654,6 +654,222 @@
 
   //=============END ROLE MODAL==============//
 
+
+    //============START SHIFT MODAL=============//
+
+    $('#view-shift').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var shift = button.data('shift');
+    var shift_created = button.data('created_shift');
+    var shift_updated = button.data('updated_shift');
+    var shift_id = button.data('shift_id');
+    var create = new Date(shift_created).toLocaleString();
+    var update = new Date(shift_updated).toLocaleString();
+
+    var modal = $(this);
+
+    modal.find('.modal-title').text('VIEW SHIFT INFORMATION');
+    modal.find('.modal-body #shift').val(shift);
+    modal.find('.modal-body #created_at').val(create);
+    modal.find('.modal-body #updated_at').val(update);
+    modal.find('.modal-body #shift_id').val(shift_id);
+  });
+
+
+
+  $('#edit-shift').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var shift = button.data('shift');
+    var shift_id = button.data('shift_id');
+
+    var modal = $(this);
+
+    modal.find('.modal-title').text('EDIT SHIFT INFORMATION');
+    modal.find('.modal-body #shift').val(shift);
+    modal.find('.modal-body #shift_id').val(shift_id);
+  });
+
+
+  $('#delete-shift').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var shift_id = button.data('shift_id');
+
+    var modal = $(this);
+
+    modal.find('.modal-title').text('DELETE SHIFT INFORMATION');
+    modal.find('.modal-body #shift_id').val(shift_id);
+    });
+
+  //=============END SHIFT MODAL==============//
+
+
+  //============START TIME MODAL=============//
+
+    $('#view-time').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var time = button.data('time');
+    var time_created = button.data('created_time');
+    var time_updated = button.data('updated_time');
+    var time_id = button.data('time_id');
+    var create = new Date(time_created).toLocaleString();
+    var update = new Date(time_updated).toLocaleString();
+
+    var modal = $(this);
+
+    modal.find('.modal-title').text('VIEW TIME INFORMATION');
+    modal.find('.modal-body #time').val(time);
+    modal.find('.modal-body #created_at').val(create);
+    modal.find('.modal-body #updated_at').val(update);
+    modal.find('.modal-body #time_id').val(time_id);
+  });
+
+
+
+  $('#edit-time').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var time = button.data('time');
+    var time_id = button.data('time_id');
+
+    var modal = $(this);
+
+    modal.find('.modal-title').text('EDIT TIME INFORMATION');
+    modal.find('.modal-body #time').val(time);
+    modal.find('.modal-body #time_id').val(time_id);
+  });
+
+
+  $('#delete-time').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var time_id = button.data('time_id');
+
+    var modal = $(this);
+
+    modal.find('.modal-title').text('DELETE TIME INFORMATION');
+    modal.find('.modal-body #time_id').val(time_id);
+    });
+
+  //=============END TIME MODAL==============//
+
+
+  //=============START CLASS SCHEDULE MODAL=============//
+
+  $('#view-shedule').on('show.bs.modal', function(event){
+      var button = $(event.relatedTarget);
+      var course_name = button.data('course_name');
+      var class_name = button.data('class_name');
+      var level = button.data('level');
+      var shift = button.data('shift');
+      var classroom_name = button.data('classroom_name');
+      var batch = button.data('batch');
+      var day_name = button.data('day_name');
+      var time = button.data('time');
+      var semester_name = button.data('semester_name');
+      var start_date = button.data('start_date');
+      var end_date = button.data('end_date');
+      var status = button.data('status');
+      var created_schedule = button.data('created_schedule');
+      var updated_schedule = button.data('updated_schedule');
+      var schedule_id = button.data('schedule_id');
+      var create = new Date(created_schedule).toLocaleString();
+      var update = new Date(updated_schedule).toLocaleString();
+
+      var modal = $(this);
+
+      modal.find('.modal-title').text('VIEW CLASS SCHEDULE INFORMATION');
+      modal.find('.modal-body #class_id').val(class_name);
+      modal.find('.modal-body #course_id').val(course_name);
+      modal.find('.modal-body #level_id').val(level);
+      modal.find('.modal-body #shift_id').val(shift);
+      modal.find('.modal-body #classroom_id').val(classroom_name);
+      modal.find('.modal-body #batch_id').val(batch);
+      modal.find('.modal-body #day_id').val(day_name);
+      modal.find('.modal-body #time_id').val(time);
+      modal.find('.modal-body #semester_id').val(semester_name);
+      modal.find('.modal-body #start_date').val(start_date);
+      modal.find('.modal-body #end_date').val(end_date);
+      if(status == 1)
+      {
+        modal.find('.modal-body #status').val('Active');
+      }
+      else
+      {
+        modal.find('.modal-body #status').val('Deactive');
+      }
+      modal.find('.modal-body #created_at').val(create);
+      modal.find('.modal-body #updated_at').val(update);
+      modal.find('.modal-body #schedule_id').val(schedule_id);
+      
+     
+    });
+
+
+
+
+    $('#delete-schedule').on('show.bs.modal', function(event){
+      var button = $(event.relatedTarget);
+      var schedule_id = button.data('schedule_id');
+
+      var modal = $(this);
+
+      modal.find('.modal-title').text('DELETE CLASS SCHEDULE INFORMATION');
+      modal.find('.modal-body #schedule_id').val(schedule_id);
+    });
+
+
+
+  //=============END CLASS SCHEDULE MODAL==============//
+
+</script>
+
+<script type="text/javascript">
+    $('#course_id').on('change', function(e){
+        var course_id = e.target.value;
+        $('#level_id').empty();
+        $.get('dynamicLevel?course_id='+ course_id, function(data){
+          $.each(data, function(index, lev){
+            $('#level_id').append('<option value="'+lev.level_id+'">'+lev.level+'</option>');
+          })
+        })
+    })
+</script>
+
+<script type="text/javascript">
+    $('#course_id1').on('change', function(e){
+        var course_id = e.target.value;
+        $('#level_id1').empty();
+        $.get('dynamicLevel?course_id='+ course_id, function(data){
+          $.each(data, function(index, lev){
+            $('#level_id1').append('<option value="'+lev.level_id+'">'+lev.level+'</option>');
+          })
+        })
+    })
+</script>
+
+<script type="text/javascript">
+  $(document).on('click', '#Edit', function(data){
+    var schedule_id = $(this).data('schedule_id');
+
+    $.get("{{ route('edit')}}", {schedule_id:schedule_id}, function(data){
+      $('#class_id1').val(data.class_id);
+      $('#course_id1').val(data.course_id);
+      $('#level_id1').val(data.level_id);
+      $('#shift_id1').val(data.shift_id);
+      $('#classroom_id1').val(data.classroom_id);
+      $('#batch_id1').val(data.batch_id);
+      $('#day_id1').val(data.day_id);
+      $('#time_id1').val(data.time_id);
+      $('#semester_id1').val(data.semester_id);
+      $('#start_date1').attr("value", data.start_date);
+      $('#end_date1').attr("value", data.end_date);
+      $('#schedule_id1').val(data.schedule_id);
+      if(data.schedule_status == 1){
+        $('#status1').attr("checked", true);
+      }else{
+        $('#status1').attr("checked", false);
+      }
+      console.log(data);
+    });
+  })
 </script>
 
 <script type="text/javascript">
@@ -672,6 +888,7 @@
         $(this).bootstrapSwitch('state', $(this).prop('checked'));
     });
 </script>
+
 
 
 @yield('third_party_scripts')

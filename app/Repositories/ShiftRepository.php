@@ -20,6 +20,8 @@ class ShiftRepository extends BaseRepository
         'shift'
     ];
 
+    protected $primaryKey = 'shift_id';
+
     /**
      * Return searchable fields
      *

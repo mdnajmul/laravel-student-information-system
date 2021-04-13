@@ -4,6 +4,12 @@
     <p>{{ $classScheduling->course_id }}</p>
 </div>
 
+<!-- Class Id Field -->
+<div class="col-sm-12">
+    {!! Form::label('class_id', 'Class Id:') !!}
+    <p>{{ $classScheduling->class_id }}</p>
+</div>
+
 <!-- Level Id Field -->
 <div class="col-sm-12">
     {!! Form::label('level_id', 'Level Id:') !!}
@@ -42,20 +48,20 @@
 
 <!-- Teacher Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('teacher_id', 'Teacher Id:') !!}
-    <p>{{ $classScheduling->teacher_id }}</p>
+    {!! Form::label('semester_id', 'Semester Id:') !!}
+    <p>{{ $classScheduling->semester_id }}</p>
 </div>
 
 <!-- Start Time Field -->
 <div class="col-sm-12">
-    {!! Form::label('start_time', 'Start Time:') !!}
-    <p>{{ $classScheduling->start_time }}</p>
+    {!! Form::label('start_date', 'Start Date:') !!}
+    <p>{{ $classScheduling->start_date }}</p>
 </div>
 
 <!-- End Time Field -->
 <div class="col-sm-12">
-    {!! Form::label('end_time', 'End Time:') !!}
-    <p>{{ $classScheduling->end_time }}</p>
+    {!! Form::label('end_date', 'End Date:') !!}
+    <p>{{ $classScheduling->end_date }}</p>
 </div>
 
 <!-- Status Field -->

@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+//use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -12,15 +13,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @version January 27, 2021, 2:57 pm UTC
  *
  * @property integer $course_id
+ * @property integer $class_id
  * @property integer $level_id
  * @property integer $shift_id
  * @property integer $classroom_id
  * @property integer $batch_id
  * @property integer $day_id
  * @property integer $time_id
- * @property integer $teacher_id
- * @property time $start_time
- * @property time $end_time
+ * @property integer $semester_id
+ * @property date $start_date
+ * @property date $end_date
  * @property boolean $status
  */
 class ClassScheduling extends Model
@@ -30,6 +32,8 @@ class ClassScheduling extends Model
     use HasFactory;
 
     public $table = 'class_schedulings';
+
+    protected $primaryKey = 'schedule_id';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -41,16 +45,17 @@ class ClassScheduling extends Model
 
     public $fillable = [
         'course_id',
+        'class_id',
         'level_id',
         'shift_id',
         'classroom_id',
         'batch_id',
         'day_id',
         'time_id',
-        'teacher_id',
-        'start_time',
-        'end_time',
-        'status'
+        'semester_id',
+        'start_date',
+        'end_date',
+        'schedule_status'
     ];
 
     /**
@@ -61,14 +66,15 @@ class ClassScheduling extends Model
     protected $casts = [
         'schedule_id' => 'integer',
         'course_id' => 'integer',
+        'class_id' => 'integer',
         'level_id' => 'integer',
         'shift_id' => 'integer',
         'classroom_id' => 'integer',
         'batch_id' => 'integer',
         'day_id' => 'integer',
         'time_id' => 'integer',
-        'teacher_id' => 'integer',
-        'status' => 'boolean'
+        'semester_id' => 'integer',
+        'schedule_status' => 'boolean'
     ];
 
     /**
@@ -78,16 +84,17 @@ class ClassScheduling extends Model
      */
     public static $rules = [
         'course_id' => 'required|integer',
+        'class_id' => 'required|integer',
         'level_id' => 'required|integer',
         'shift_id' => 'required|integer',
         'classroom_id' => 'required|integer',
         'batch_id' => 'required|integer',
         'day_id' => 'required|integer',
         'time_id' => 'required|integer',
-        'teacher_id' => 'required|integer',
-        'start_time' => 'required',
-        'end_time' => 'required',
-        'status' => 'required|boolean',
+        'semester_id' => 'required|integer',
+        'start_date' => 'required',
+        'end_date' => 'required',
+        'schedule_status' => 'required|boolean',
         'deleted_at' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'

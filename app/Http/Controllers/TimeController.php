@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTimeRequest;
 use App\Repositories\TimeRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\Time;
 use Flash;
 use Response;
 
@@ -29,10 +30,9 @@ class TimeController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $times = $this->timeRepository->all();
+        $data['times']=Time::get()->toArray();
 
-        return view('times.index')
-            ->with('times', $times);
+        return view('times.index',$data);
     }
 
     /**
@@ -52,11 +52,14 @@ class TimeController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateTimeRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        $times = array(
+            'time' => $request->time,
+            'time_id' => $request->time_id,
+        );
 
-        $time = $this->timeRepository->create($input);
+        Time::create($times);
 
         Flash::success('Time saved successfully.');
 
@@ -70,17 +73,17 @@ class TimeController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show()
     {
-        $time = $this->timeRepository->find($id);
+        // $time = $this->timeRepository->find($id);
 
-        if (empty($time)) {
-            Flash::error('Time not found');
+        // if (empty($time)) {
+        //     Flash::error('Time not found');
 
-            return redirect(route('times.index'));
-        }
+        //     return redirect(route('times.index'));
+        // }
 
-        return view('times.show')->with('time', $time);
+        // return view('times.show')->with('time', $time);
     }
 
     /**
@@ -90,17 +93,17 @@ class TimeController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $time = $this->timeRepository->find($id);
+        // $time = $this->timeRepository->find($id);
 
-        if (empty($time)) {
-            Flash::error('Time not found');
+        // if (empty($time)) {
+        //     Flash::error('Time not found');
 
-            return redirect(route('times.index'));
-        }
+        //     return redirect(route('times.index'));
+        // }
 
-        return view('times.edit')->with('time', $time);
+        // return view('times.edit')->with('time', $time);
     }
 
     /**
@@ -111,17 +114,20 @@ class TimeController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateTimeRequest $request)
+    public function update(Request $request)
     {
-        $time = $this->timeRepository->find($id);
+        $times = array(
+            'time' => $request->time,
+            'time_id' => $request->time_id,
+        );
+        
+        Time::findOrfail($request->time_id)->update($times);
 
-        if (empty($time)) {
+        if (empty($times)) {
             Flash::error('Time not found');
 
             return redirect(route('times.index'));
         }
-
-        $time = $this->timeRepository->update($request->all(), $id);
 
         Flash::success('Time updated successfully.');
 
@@ -137,17 +143,11 @@ class TimeController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $time = $this->timeRepository->find($id);
-
-        if (empty($time)) {
-            Flash::error('Time not found');
-
-            return redirect(route('times.index'));
-        }
-
-        $this->timeRepository->delete($id);
+        $delete_time= Time::findOrfail($request->time_id);
+        
+        $delete_time->delete();
 
         Flash::success('Time deleted successfully.');
 

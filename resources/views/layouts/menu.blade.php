@@ -1,5 +1,5 @@
 @if(Auth::user()->role < 2)
-  <li class="nav-item has-treeview menu-open">
+  <li class="nav-item has-treeview menu-close">
 
     <a href="#" class="nav-link active">
       <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -97,7 +97,7 @@
   </li>
 
 
-  <li class="nav-item has-treeview menu-open">
+  <li class="nav-item has-treeview menu-close">
 
     <a href="#" class="nav-link active">
       <i class="nav-icon far fa-calendar-alt"></i>

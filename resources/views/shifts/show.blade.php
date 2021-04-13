@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Shift Details</h1>
+                    <h1><i class="fab fa-stripe-s" aria-hidden="true">Shift Details</i></h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"

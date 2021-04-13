@@ -10,19 +10,21 @@
         </button>
       </div>
       <div class="modal-body">
+      
         <form action="{{route('roles.store')}}" method ="post">
           @csrf
           <div class="form-group">
-          {!! Form::label('name', 'Role Name') !!}
-          {!! Form::text('name', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'placeholder' => 'Enter Role Name','required' => 'required']) !!}
+            {!! Form::label('name', 'Role Name') !!}
+            {!! Form::text('name', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'placeholder' => 'Enter Role Name','required' => 'required']) !!}
+          </div>
       </div>
 
-      </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Save Role</button>
         </div>
         </form>
+
       </div>
     </div>
   </div>

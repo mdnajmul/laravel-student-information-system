@@ -22,17 +22,18 @@ class ClassSchedulingFactory extends Factory
     public function definition()
     {
         return [
-            'course_id' => $this->faker->randomDigitNotNull,
+        'course_id' => $this->faker->randomDigitNotNull,
+        'class_id' => $this->faker->randomDigitNotNull,
         'level_id' => $this->faker->randomDigitNotNull,
         'shift_id' => $this->faker->randomDigitNotNull,
         'classroom_id' => $this->faker->randomDigitNotNull,
         'batch_id' => $this->faker->randomDigitNotNull,
         'day_id' => $this->faker->randomDigitNotNull,
         'time_id' => $this->faker->randomDigitNotNull,
-        'teacher_id' => $this->faker->randomDigitNotNull,
-        'start_time' => $this->faker->word,
-        'end_time' => $this->faker->word,
-        'status' => $this->faker->word,
+        'semester_id' => $this->faker->randomDigitNotNull,
+        'start_date' => $this->faker->word,
+        'end_date' => $this->faker->word,
+        'schedule_status' => $this->faker->word,
         'deleted_at' => $this->faker->date('Y-m-d H:i:s'),
         'created_at' => $this->faker->date('Y-m-d H:i:s'),
         'updated_at' => $this->faker->date('Y-m-d H:i:s')

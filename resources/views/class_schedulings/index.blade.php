@@ -5,12 +5,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Class Schedulings</h1>
+                <h1><i class="far fa-calendar-alt" aria-hidden="true"> Class Shedule</i></h1>
                 </div>
                 <div class="col-sm-6">
-                    <a class="btn btn-primary float-right"
-                       href="{{ route('classSchedulings.create') }}">
-                        Add New
+                    <a data-toggle="modal" data-target="#add-class-shedule" class="btn btn-success float-right">
+                        <i class="fa fa-plus-circle"> Generate New Class Shedule</i>
                     </a>
                 </div>
             </div>
@@ -21,11 +20,17 @@
 
         @include('flash::message')
 
+        @include('adminlte-templates::common.errors')
+
         <div class="clearfix"></div>
 
         <div class="card">
             <div class="card-body p-0">
                 @include('class_schedulings.table')
+
+                @include('class_schedulings.fields')
+
+                @include('class_schedulings.edit')
 
                 <div class="card-footer clearfix float-right">
                     <div class="float-right">
