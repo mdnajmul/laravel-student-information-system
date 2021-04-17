@@ -8,9 +8,8 @@
                     <h1>Teachers</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a class="btn btn-primary float-right"
-                       href="{{ route('teachers.create') }}">
-                        Add New
+                    <a data-toggle="modal" data-target="#add-teacher" class="btn btn-success float-right">
+                    <i class="fa fa-plus-circle"> Add New Teacher</i>
                     </a>
                 </div>
             </div>
@@ -26,6 +25,8 @@
         <div class="card">
             <div class="card-body p-0">
                 @include('teachers.table')
+
+                @include('teachers.fields')
 
                 <div class="card-footer clearfix float-right">
                     <div class="float-right">
