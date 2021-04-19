@@ -55,9 +55,40 @@ class TeacherController extends AppBaseController
      */
     public function store(CreateTeacherRequest $request)
     {
-        $input = $request->all();
+        //$input = $request->all();
 
-        $teacher = $this->teacherRepository->create($input);
+        $image = $request->file('image'); //this request is requesting image file okay
+        
+
+        //this part is the part that our image name will be like. we use the rand function 
+        //to generate random numbers for each of our images that we store okay
+        $image_name = rand(1111,9999) . '.' . $image->getClientOriginalExtension();
+
+        //this move function is a function that will move our image to the public folder and
+        //create folder class (teacher_images) and store all our images inside that folder.
+        $image->move(public_path('teacher_images'), $image_name);
+
+        $teacher = new Teacher; //Teacher is the modal of the Teacher where we have all the fillable attributes.
+
+        $teacher->first_name = $request->first_name;
+        $teacher->last_name = $request->last_name;
+        $teacher->gender = $request->gender;
+        $teacher->email  = $request->email ;
+        $teacher->dob = $request->dob;
+        $teacher->phone = $request->phone;
+        $teacher->address = $request->address;
+        $teacher->nationality = $request->nationality;
+        $teacher->passport = $request->passport;
+        $teacher->status = $request->status;
+        $teacher->registered_date = $request->registered_date;
+        $teacher->user_id = $request->user_id;
+        $teacher->image = $image_name;
+
+        //dd($teacher);
+        
+        $teacher->save(); //this save function will save our data inside the database
+
+        // $teacher = $this->teacherRepository->create($input);
 
         Flash::success('Teacher saved successfully.');
 

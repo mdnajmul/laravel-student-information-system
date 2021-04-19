@@ -33,7 +33,7 @@
                     <span class="btn btn-info" style="color: white;cursor: text;">Married</span>
                     @endif
                 </td>
-                <td>{{ $teacher['image'] }}</td>
+                <td><img src="{{asset('teacher_images/' .$teacher['image'])}}" alt="teacher.jpg" class="rounded-circle" width="50" height="50" style="border-radius: 50%; vertical-align: middle;"></td>
                 <td width="120">
                     <form action="{{ route('teachers.destroy', '$teacher->teacher_id') }}" method="post">
                     <div class='btn-group'>

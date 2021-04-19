@@ -58,7 +58,7 @@
             </div>
             <!-- modal body start here-->
             <div class="modal-body">
-                <form action="{{route('teachers.store')}}" method ="post">
+                <form action="{{route('teachers.store')}}" method ="post" enctype="multipart/form-data">
                  @csrf
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -243,7 +243,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="image">
-                                                            {!! Html::image('img/profile.jpg', null, ['class'=>'teacher-image', 'id'=>'showImage']) !!}
+                                                            {!! Html::image('teacher_images/profile.jpg', null, ['class'=>'teacher-image', 'id'=>'showImage']) !!}
                                                             <input type="file" name="image" id="image" accept="image/x-png,image/png,image/jpg,image/jpeg">
                                                         </td>
                                                     </tr>

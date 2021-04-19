@@ -99,7 +99,7 @@ class Teacher extends Model
         'status' => 'required|string|max:255',
         'registered_date' => 'required',
         'user_id' => 'required|integer',
-        'image' => 'nullable|string|max:255',
+        'image' => 'nullable',
         'deleted_at' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
