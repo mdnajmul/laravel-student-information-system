@@ -1,54 +1,69 @@
+<style type="text/css">
+    input:read-only{
+        border: none;
+        border-color: transparent;
+    }
+</style>
+
 <div class="table-responsive">
     <table class="table" id="teachers-table">
         <thead>
             <tr>
-                <th>First Name</th>
-        <th>Last Name</th>
-        <th>Gender</th>
-        <th>Email</th>
-        <th>Dob</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>Nationality</th>
-        <th>Passport</th>
-        <th>Status</th>
-        <th>Registered Date</th>
-        <th>User Id</th>
-        <th>Image</th>
-                <th colspan="3">Action</th>
+                <th style="font-weight: bold;">Full Name</th>
+                <th style="font-weight: bold;">Gender</th>
+                <th style="font-weight: bold;">Email</th>
+                <th style="font-weight: bold;">Phone</th>
+                <th style="font-weight: bold;">Status</th>
+                <th style="font-weight: bold;">Photo</th>
+                <th colspan="3" style="font-weight: bold;">Action</th>
             </tr>
         </thead>
         <tbody>
-        @foreach($teachers as $teacher)
+        <?php if(!empty($teachers)){?>
+            @foreach($teachers as $teacher)
             <tr>
-                <td>{{ $teacher->first_name }}</td>
-            <td>{{ $teacher->last_name }}</td>
-            <td>{{ $teacher->gender }}</td>
-            <td>{{ $teacher->email }}</td>
-            <td>{{ $teacher->dob }}</td>
-            <td>{{ $teacher->phone }}</td>
-            <td>{{ $teacher->address }}</td>
-            <td>{{ $teacher->nationality }}</td>
-            <td>{{ $teacher->passport }}</td>
-            <td>{{ $teacher->status }}</td>
-            <td>{{ $teacher->registered_date }}</td>
-            <td>{{ $teacher->user_id }}</td>
-            <td>{{ $teacher->image }}</td>
+                <td>{{ $teacher['first_name']. ' ' .$teacher['last_name'] }}</td>
+                <td>{{ $teacher['gender'] }}</td>
+                <td>{{ $teacher['email'] }}</td>
+                <td>{{ $teacher['phone'] }}</td>
+                <td>
+                    @if($teacher['status'] == 0)
+                    <span class="btn btn-success" style="color: white;cursor: text;">Single</span>
+                    @else
+                    <span class="btn btn-info" style="color: white;cursor: text;">Married</span>
+                    @endif
+                </td>
+                <td>{{ $teacher['image'] }}</td>
                 <td width="120">
-                    {!! Form::open(['route' => ['teachers.destroy', $teacher->id], 'method' => 'delete']) !!}
+                    <form action="{{ route('teachers.destroy', '$teacher->teacher_id') }}" method="post">
                     <div class='btn-group'>
-                        <a href="{{ route('teachers.show', [$teacher->id]) }}" class='btn btn-default btn-xs'>
-                            <i class="far fa-eye"></i>
+                        <!----------------------------  Teacher View Button ---------------------------------->
+                        <a data-target="#view-teacher" data-toggle="modal" data-teacher_id="{{$teacher['teacher_id']}}" class='btn btn-warning'>
+                            <i class="far fa-eye"> View</i>
                         </a>
-                        <a href="{{ route('teachers.edit', [$teacher->id]) }}" class='btn btn-default btn-xs'>
-                            <i class="far fa-edit"></i>
+                        <!------------------------------------------------------------------------------------->
+
+                        <!----------------------------  Teacher Edit Button ---------------------------------->
+                        <a data-target="#edit-teacher" data-toggle="modal" data-teacher_id="{{$teacher['teacher_id']}}" class="btn btn-info">
+                            <i class="far fa-edit"> Edit</i>
                         </a>
-                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        <!------------------------------------------------------------------------------------->
+                        <meta name="csrf-token" content="{{ csrf_token() }}">
+                        <!----------------------------  Teacher Delete Button ---------------------------------->
+                        <a data-teacher_id="{{$teacher['teacher_id']}}" data-toggle="modal" data-target="#delete-teacher" class="btn btn-danger">
+                            <i class="far fa-trash-alt"> Delete</i>
+                        </a>
+                        <!------------------------------------------------------------------------------------->
                     </div>
-                    {!! Form::close() !!}
+                    </form>
                 </td>
             </tr>
         @endforeach
+        <?php } else {?>
+            <tr>
+                <td colspan="9" style="text-align: center;">No Data Found</td>
+            </tr>
+        <?php } ?>
         </tbody>
     </table>
 </div>

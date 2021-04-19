@@ -873,6 +873,30 @@
 </script>
 
 <script type="text/javascript">
+
+        //-------------- Browse image -----------------------//
+                        $('#browse_file').on('click', function(){
+                            $('#image').click();
+                        })
+                        $('#image').on('change', function(e){
+                            showFile(this, '#showImage');
+                        })
+
+                        //---------- (parameter) fileInput:any ------//
+                        function showFile(fileInput,img,showName){
+                            if(fileInput.files[0]){
+                                var reader = new FileReader();
+                                reader.onload = function(e){
+                                    $(img).attr('src', e.target.result);
+                                }
+                                reader.readAsDataURL(fileInput.files[0]);
+                            }
+                            $(showName).text(fileInput.files[0].name);
+                        };
+
+</script>
+
+<script type="text/javascript">
   $(document).ready(function(){
     $('.datatable').dataTable();
   });

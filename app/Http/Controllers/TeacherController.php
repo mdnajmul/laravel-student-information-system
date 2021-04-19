@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateTeacherRequest;
 use App\Repositories\TeacherRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\Teacher;
+use App\Models\User;
 use Flash;
 use Response;
 
@@ -29,10 +31,9 @@ class TeacherController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $teachers = $this->teacherRepository->all();
+        $data['teachers'] = Teacher::orderBy('teacher_id','DESC')->get()->toArray();
 
-        return view('teachers.index')
-            ->with('teachers', $teachers);
+        return view('teachers.index',$data);
     }
 
     /**
