@@ -73,7 +73,7 @@
           </div>
           <div class="form-group col-md-12">
               {!! Form::label('classroom_status', 'Status') !!}
-              {!! Form::text('classroom_status', null, ['class' => 'form-control','id' => 'classroom_status','name' => 'classroom_status','cols' => 2, 'rows' => 2,'readonly' => 'readonly']) !!}
+              {!! Form::text('classroom_status', null, ['class' => 'form-control','id' => 'classroom_status','name' => 'classroom_status','readonly' => 'readonly']) !!}
           </div>
           <div class="form-group col-md-12">
               {!! Form::label('created_at', 'Classroom Created') !!}

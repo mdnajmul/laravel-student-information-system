@@ -2,28 +2,27 @@
 
 namespace App\Repositories;
 
-use App\Models\Faculty;
+use App\Models\Department;
 use App\Repositories\BaseRepository;
 
 /**
- * Class FacultyRepository
+ * Class DepartmentRepository
  * @package App\Repositories
- * @version January 27, 2021, 2:47 pm UTC
+ * @version April 20, 2021, 2:36 pm UTC
 */
 
-class FacultyRepository extends BaseRepository
+class DepartmentRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
-        'faculty_name',
-        'faculty_code',
-        'faculty_description',
-        'faculty_status'
+        'faculty_id',
+        'department_name',
+        'department_code',
+        'department_description',
+        'department_status'
     ];
-
-    protected $primaryKey = 'faculty_id';
 
     /**
      * Return searchable fields
@@ -40,6 +39,6 @@ class FacultyRepository extends BaseRepository
      **/
     public function model()
     {
-        return Faculty::class;
+        return Department::class;
     }
 }

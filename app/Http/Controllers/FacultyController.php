@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateFacultyRequest;
 use App\Repositories\FacultyRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\Faculty;
 use Flash;
 use Response;
 
@@ -29,10 +30,9 @@ class FacultyController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $faculties = $this->facultyRepository->all();
+        $data['faculties'] = Faculty::orderBy('faculty_id','DESC')->get()->toArray();
 
-        return view('faculties.index')
-            ->with('faculties', $faculties);
+        return view('faculties.index',$data);
     }
 
     /**
@@ -54,9 +54,16 @@ class FacultyController extends AppBaseController
      */
     public function store(CreateFacultyRequest $request)
     {
-        $input = $request->all();
+        $faculty = new Faculty; //Faculty is the modal of the Faculty where we have all the fillable attributes.
 
-        $faculty = $this->facultyRepository->create($input);
+        $faculty->faculty_name = $request->faculty_name;
+        $faculty->faculty_code = $request->faculty_code;
+        if(!empty($request->faculty_description)){
+            $faculty->faculty_description = $request->faculty_description;
+        }
+        $faculty->faculty_status = $request->faculty_status;
+
+        $faculty->save();
 
         Flash::success('Faculty saved successfully.');
 
@@ -70,18 +77,18 @@ class FacultyController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
-    {
-        $faculty = $this->facultyRepository->find($id);
+    // public function show($id)
+    // {
+    //     $faculty = $this->facultyRepository->find($id);
 
-        if (empty($faculty)) {
-            Flash::error('Faculty not found');
+    //     if (empty($faculty)) {
+    //         Flash::error('Faculty not found');
 
-            return redirect(route('faculties.index'));
-        }
+    //         return redirect(route('faculties.index'));
+    //     }
 
-        return view('faculties.show')->with('faculty', $faculty);
-    }
+    //     return view('faculties.show')->with('faculty', $faculty);
+    // }
 
     /**
      * Show the form for editing the specified Faculty.
@@ -90,18 +97,18 @@ class FacultyController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
-    {
-        $faculty = $this->facultyRepository->find($id);
+    // public function edit($id)
+    // {
+    //     $faculty = $this->facultyRepository->find($id);
 
-        if (empty($faculty)) {
-            Flash::error('Faculty not found');
+    //     if (empty($faculty)) {
+    //         Flash::error('Faculty not found');
 
-            return redirect(route('faculties.index'));
-        }
+    //         return redirect(route('faculties.index'));
+    //     }
 
-        return view('faculties.edit')->with('faculty', $faculty);
-    }
+    //     return view('faculties.edit')->with('faculty', $faculty);
+    // }
 
     /**
      * Update the specified Faculty in storage.
@@ -111,21 +118,67 @@ class FacultyController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateFacultyRequest $request)
+    public function update(Request $request)
     {
-        $faculty = $this->facultyRepository->find($id);
+        if($request->faculty_name=='' && $request->faculty_code=='' && $request->faculty_description=='')
+        {
+             $faculty = array();
+        }else if($request->faculty_name!='' && $request->faculty_code!='' && $request->faculty_description!='')
+        {
+            $faculty = array(
+                    'faculty_name' => $request->faculty_name,
+                    'faculty_code' => $request->faculty_code,
+                    'faculty_description' => $request->faculty_description,
+                    'faculty_status' => $request->faculty_status,
+             );
+        }
+        else
+        {
+             if($request->faculty_name==''){
+                $faculty = array(
+                    'faculty_name' => '',
+                    'faculty_code' => $request->faculty_code,
+                    'faculty_description' => $request->faculty_description,
+                    'faculty_status' => $request->faculty_status,
+             );
+            }
+
+
+            if($request->faculty_code==''){
+                $faculty = array(
+                    'faculty_name' => $request->faculty_name,
+                    'faculty_code' => '',
+                    'faculty_description' => $request->faculty_description,
+                    'faculty_status' => $request->faculty_status,
+             );
+            }
+
+
+
+            if($request->faculty_description==''){
+                $faculty = array(
+                    'faculty_name' => $request->faculty_name,
+                    'faculty_code' => $request->faculty_code,
+                    'faculty_description' => '',
+                    'faculty_status' => $request->faculty_status,
+             );
+            }
+        }
+
 
         if (empty($faculty)) {
-            Flash::error('Faculty not found');
+
+            Flash::error('Please fill up at least one input field!');
+
+            return redirect(route('faculties.index'));
+
+        }else{
+            Faculty::findOrfail($request->faculty_id)->update($faculty);
+
+            Flash::success('Faculty updated successfully.');
 
             return redirect(route('faculties.index'));
         }
-
-        $faculty = $this->facultyRepository->update($request->all(), $id);
-
-        Flash::success('Faculty updated successfully.');
-
-        return redirect(route('faculties.index'));
     }
 
     /**
@@ -137,17 +190,10 @@ class FacultyController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $faculty = $this->facultyRepository->find($id);
-
-        if (empty($faculty)) {
-            Flash::error('Faculty not found');
-
-            return redirect(route('faculties.index'));
-        }
-
-        $this->facultyRepository->delete($id);
+        $delete_faculty= Faculty::findOrfail($request->faculty_id);
+        $delete_faculty->delete();
 
         Flash::success('Faculty deleted successfully.');
 

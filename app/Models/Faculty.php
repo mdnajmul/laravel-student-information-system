@@ -24,6 +24,8 @@ class Faculty extends Model
     use HasFactory;
 
     public $table = 'faculties';
+
+    protected $primaryKey = 'faculty_id';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';

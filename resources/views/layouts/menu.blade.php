@@ -177,3 +177,11 @@
   
 
 
+<li class="nav-item">
+    <a href="{{ route('departments.index') }}"
+       class="nav-link {{ Request::is('departments*') ? 'active' : '' }}">
+        <p>Departments</p>
+    </a>
+</li>
+
+

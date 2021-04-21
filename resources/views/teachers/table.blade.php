@@ -38,7 +38,7 @@
                     <form action="{{ route('teachers.destroy', '$teacher->teacher_id') }}" method="post">
                     <div class='btn-group'>
                         <!----------------------------  Teacher View Button ---------------------------------->
-                        <a data-target="#view-teacher" data-toggle="modal" data-teacher_id="{{$teacher['teacher_id']}}" class='btn btn-warning'>
+                        <a href="{{ route('teachers.show', [$teacher['teacher_id']]) }}" class='btn btn-warning'>
                             <i class="far fa-eye"> View</i>
                         </a>
                         <!------------------------------------------------------------------------------------->

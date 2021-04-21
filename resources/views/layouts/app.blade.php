@@ -819,6 +819,80 @@
 
   //=============END CLASS SCHEDULE MODAL==============//
 
+
+    //=============START FACULTY MODAL=============//
+
+    $('#view-faculty').on('show.bs.modal', function(event){
+      var button = $(event.relatedTarget);
+      var faculty_name = button.data('faculty_name');
+      var faculty_code = button.data('faculty_code');
+      var faculty_description = button.data('faculty_description');
+      var faculty_status = button.data('faculty_status');
+      var created_faculty = button.data('created_faculty');
+      var updated_faculty = button.data('updated_faculty');
+      var faculty_id = button.data('faculty_id');
+      var create = new Date(created_faculty).toLocaleString();
+      var update = new Date(updated_faculty).toLocaleString();
+
+      var modal = $(this);
+
+      modal.find('.modal-title').text('VIEW FACULTY INFORMATION');
+      modal.find('.modal-body #faculty_name').val(faculty_name);
+      modal.find('.modal-body #faculty_code').val(faculty_code);
+      modal.find('.modal-body #faculty_description').val(faculty_description);
+      if(faculty_status == 1)
+      {
+        modal.find('.modal-body #faculty_status').val('ACTIVE');
+      }
+      else
+      {
+        modal.find('.modal-body #faculty_status').val('DEACTIVE');
+      }
+      modal.find('.modal-body #created_at').val(create);
+      modal.find('.modal-body #updated_at').val(update);
+      modal.find('.modal-body #faculty_id').val(faculty_id);
+    });
+
+
+    $('#edit-faculty').on('show.bs.modal', function(event){
+      var button = $(event.relatedTarget);
+      var faculty_name = button.data('faculty_name');
+      var faculty_code = button.data('faculty_code');
+      var faculty_description = button.data('faculty_description');
+      var faculty_status = button.data('faculty_status');
+      var faculty_id = button.data('faculty_id');
+
+      var modal = $(this);
+
+      modal.find('.modal-title').text('EDIT FACULTY INFORMATION');
+      modal.find('.modal-body #faculty_name').val(faculty_name);
+      modal.find('.modal-body #faculty_code').val(faculty_code);
+      modal.find('.modal-body #faculty_description').val(faculty_description);
+      if(faculty_status == 1)
+      {
+        modal.find('.modal-body #faculty_status').attr("checked", true);
+      }
+      else
+      {
+        modal.find('.modal-body #faculty_status').attr("checked", false);
+      }
+      modal.find('.modal-body #faculty_id').val(faculty_id);
+    });
+
+
+    $('#delete-faculty').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var faculty_id = button.data('faculty_id');
+
+    var modal = $(this);
+
+    modal.find('.modal-title').text('DELETE FACULTY INFORMATION');
+    modal.find('.modal-body #faculty_id').val(faculty_id);
+    });
+
+
+  //=============END FACULTY MODAL==============//
+
 </script>
 
 <script type="text/javascript">

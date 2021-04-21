@@ -59,6 +59,8 @@ Route::resource('levels', App\Http\Controllers\LevelController::class);
 
 Route::resource('semesters', App\Http\Controllers\SemesterController::class);
 
+Route::resource('departments', App\Http\Controllers\DepartmentController::class);
+
 
 //Here we write route for dynamic selection//
 
@@ -70,3 +72,5 @@ Route::get('/class_schedule/edit',['as' => 'edit', 'uses' => 'App\Http\Controlle
 
 //Update route:Class_Scheduling
 //Route::post('/class_schedule/update',['as' => 'update', 'uses' => 'App\Http\Controllers\ClassSchedulingController@update']);
+
+

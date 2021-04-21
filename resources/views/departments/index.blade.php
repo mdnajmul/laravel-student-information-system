@@ -5,11 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><i class="fab fa-foursquare" aria-hidden="true"></i> Faculties</h1>
+                    <h1>Departments</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a data-toggle="modal" data-target="#add-faculty" class="btn btn-success float-right">
-                        <i class="fa fa-plus-circle"> Create New Faculty</i>
+                    <a class="btn btn-primary float-right"
+                       href="{{ route('departments.create') }}">
+                        Add New
                     </a>
                 </div>
             </div>
@@ -20,19 +21,11 @@
 
         @include('flash::message')
 
-        @include('adminlte-templates::common.errors')
-
         <div class="clearfix"></div>
 
         <div class="card">
             <div class="card-body p-0">
-                @include('faculties.table')
-
-                {!! Form::open(['route' => 'faculties.store']) !!}
-
-                    @include('faculties.fields')
-
-                {!! Form::close() !!}   
+                @include('departments.table')
 
                 <div class="card-footer clearfix float-right">
                     <div class="float-right">
