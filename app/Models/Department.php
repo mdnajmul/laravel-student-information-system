@@ -24,6 +24,8 @@ class Department extends Model
     use HasFactory;
 
     public $table = 'departments';
+
+    protected $primaryKey = 'department_id';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';

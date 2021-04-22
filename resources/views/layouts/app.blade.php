@@ -893,6 +893,82 @@
 
   //=============END FACULTY MODAL==============//
 
+
+  //============START DEPARMENT MODAL=============//
+
+  $('#view-department').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var department_name = button.data('department_name');
+    var department_code = button.data('department_code');
+    var faculty_name = button.data('faculty_name');
+    var department_description = button.data('department_description');
+    var department_status = button.data('department_status');
+    var created_department = button.data('created_department');
+    var updated_department = button.data('updated_department');
+    var department_id = button.data('department_id');
+    var create = new Date(created_department).toLocaleString();
+    var update = new Date(updated_department).toLocaleString();
+
+    var modal = $(this);
+
+    modal.find('.modal-title').text('VIEW DEPARTMENT INFORMATION');
+    modal.find('.modal-body #department_name').val(department_name);
+    modal.find('.modal-body #department_code').val(department_code);
+    modal.find('.modal-body #faculty_name').val(faculty_name);
+    modal.find('.modal-body #department_description').val(department_description);
+    if(department_status == 1)
+    {
+      modal.find('.modal-body #department_status').val('Active');
+    }
+    else
+    {
+      modal.find('.modal-body #department_status').val('Deactive');
+    }
+    modal.find('.modal-body #created_at').val(create);
+    modal.find('.modal-body #updated_at').val(update);
+    modal.find('.modal-body #department_id').val(department_id);
+  });
+
+
+
+  $('#edit-department').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var department_name = button.data('department_name');
+    var department_code = button.data('department_code');
+    var department_description = button.data('department_description');
+    var department_status = button.data('department_status');
+    var department_id = button.data('department_id');
+
+    var modal = $(this);
+
+    modal.find('.modal-title').text('EDIT DEPARTMENT INFORMATION');
+    modal.find('.modal-body #department_name').val(department_name);
+    modal.find('.modal-body #department_code').val(department_code);
+    modal.find('.modal-body #department_description').val(department_description);
+    if(department_status == 1)
+    {
+      modal.find('.modal-body #department_status').attr("checked", true);
+    }
+    else
+    {
+      modal.find('.modal-body #department_status').attr("checked", false);
+    }
+    modal.find('.modal-body #department_id').val(department_id);
+  });
+
+
+  $('#delete-department').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget);
+    var department_id = button.data('department_id');
+
+    var modal = $(this);
+
+    modal.find('.modal-title').text('DELETE DEPARTMENT INFORMATION');
+    modal.find('.modal-body #department_id').val(department_id);
+    });
+
+  //=============END DEPARTMENT MODAL==============//
+
 </script>
 
 <script type="text/javascript">

@@ -72,7 +72,7 @@
           </div>
           <div class="form-group col-md-12">
               <label>Select Course Name</label>
-              <select name="course_id" id="course_id" class="form-control" required="required">
+              <select name="course_id" id="course_id" class="form-control">
                 <option value="">Select Course</option>
                 @foreach($courses as $course)
                 <option value="{{$course['id']}}" <?php if($level['courseId']==$course['id']){ echo "selected"; }?> >{{$course['course_name']}}</option>

@@ -65,7 +65,7 @@
           </div>
           <div class="form-group col-md-12">
               {!! Form::label('level_description', 'Level Description') !!}
-              {!! Form::textarea('level_description', null, ['class' => 'form-control','placeholder' => 'Enter Level Name','required' => 'required','cols' => 2, 'rows' => 2]) !!}
+              {!! Form::textarea('level_description', null, ['class' => 'form-control','placeholder' => 'Write Details About Level','required' => 'required','cols' => 2, 'rows' => 2]) !!}
           </div>
         </div>
           <div class="modal-footer">

@@ -135,7 +135,6 @@ class ClassroomController extends AppBaseController
         {
              if($request->classroom_name==''){
                 $classroom = array(
-                    'classroom_name' => '',
                     'classroom_code' => $request->classroom_code,
                     'classroom_description' => $request->classroom_description,
                     'classroom_status' => $request->classroom_status,
@@ -146,7 +145,6 @@ class ClassroomController extends AppBaseController
             if($request->classroom_code==''){
                 $classroom = array(
                     'classroom_name' => $request->classroom_name,
-                    'classroom_code' => '',
                     'classroom_description' => $request->classroom_description,
                     'classroom_status' => $request->classroom_status,
              );
@@ -158,7 +156,6 @@ class ClassroomController extends AppBaseController
                 $classroom = array(
                     'classroom_name' => $request->classroom_name,
                     'classroom_code' => $request->classroom_code,
-                    'classroom_description' => '',
                     'classroom_status' => $request->classroom_status,
              );
             }

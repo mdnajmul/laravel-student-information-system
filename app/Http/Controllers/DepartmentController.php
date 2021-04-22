@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateDepartmentRequest;
 use App\Repositories\DepartmentRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\Department;
+use App\Models\Faculty;
 use Flash;
 use Response;
 
@@ -29,10 +31,14 @@ class DepartmentController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $departments = $this->departmentRepository->all();
+        $data['faculties']=Faculty::where('faculty_status','1')->get()->toArray();
+        $data['departments']=Department::
+        select(['departments.*','faculties.faculty_name','faculties.faculty_id'])
+        ->orderBy('department_id','desc')
+        ->join('faculties','departments.faculty_id','=','faculties.faculty_id')
+        ->get()->toArray();
 
-        return view('departments.index')
-            ->with('departments', $departments);
+        return view('departments.index',$data);
     }
 
     /**
@@ -70,18 +76,18 @@ class DepartmentController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
-    {
-        $department = $this->departmentRepository->find($id);
+    // public function show($id)
+    // {
+    //     $department = $this->departmentRepository->find($id);
 
-        if (empty($department)) {
-            Flash::error('Department not found');
+    //     if (empty($department)) {
+    //         Flash::error('Department not found');
 
-            return redirect(route('departments.index'));
-        }
+    //         return redirect(route('departments.index'));
+    //     }
 
-        return view('departments.show')->with('department', $department);
-    }
+    //     return view('departments.show')->with('department', $department);
+    // }
 
     /**
      * Show the form for editing the specified Department.
@@ -90,18 +96,18 @@ class DepartmentController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
-    {
-        $department = $this->departmentRepository->find($id);
+    // public function edit($id)
+    // {
+    //     $department = $this->departmentRepository->find($id);
 
-        if (empty($department)) {
-            Flash::error('Department not found');
+    //     if (empty($department)) {
+    //         Flash::error('Department not found');
 
-            return redirect(route('departments.index'));
-        }
+    //         return redirect(route('departments.index'));
+    //     }
 
-        return view('departments.edit')->with('department', $department);
-    }
+    //     return view('departments.edit')->with('department', $department);
+    // }
 
     /**
      * Update the specified Department in storage.
@@ -111,21 +117,77 @@ class DepartmentController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateDepartmentRequest $request)
+    public function update(Request $request)
     {
-        $department = $this->departmentRepository->find($id);
+        if($request->department_name=='' && $request->department_code=='' && $request->faculty_id==0 && $request->department_description=='')
+        {
+             $department = array();
+        }else if($request->department_name!='' && $request->department_code!='' && $request->faculty_id!=0 && $request->department_description!='')
+        {
+            $department = array(
+                    'department_name' => $request->department_name,
+                    'department_code' => $request->department_code,
+                    'faculty_id' => $request->faculty_id,
+                    'department_description' => $request->department_description,
+                    'department_status' => $request->department_status,
+             );
+        }
+        else
+        {
+             if($request->department_name==''){
+                $department = array(
+                    'department_code' => $request->department_code,
+                    'faculty_id' => $request->faculty_id,
+                    'department_description' => $request->department_description,
+                    'department_status' => $request->department_status,
+             );
+            }
+
+
+            if($request->department_code==''){
+                $department = array(
+                    'department_name' => $request->department_name,
+                    'faculty_id' => $request->faculty_id,
+                    'department_description' => $request->department_description,
+                    'department_status' => $request->department_status,
+             );
+            }
+
+
+
+            if($request->faculty_id==0){
+                $department = array(
+                    'department_name' => $request->department_name,
+                    'department_code' => $request->department_code,
+                    'department_description' => $request->department_description,
+                    'department_status' => $request->department_status,
+             );
+            }
+
+
+            if($request->department_description==''){
+                $department = array(
+                    'department_name' => $request->department_name,
+                    'department_code' => $request->department_code,
+                    'faculty_id' => $request->faculty_id,
+                    'department_status' => $request->department_status,
+             );
+            }
+        }
 
         if (empty($department)) {
-            Flash::error('Department not found');
+
+            Flash::error('Please fill up at least one input field!');
+
+            return redirect(route('departments.index'));
+
+        }else{
+            Department::findOrfail($request->department_id)->update($department);
+
+            Flash::success('Department updated successfully.');
 
             return redirect(route('departments.index'));
         }
-
-        $department = $this->departmentRepository->update($request->all(), $id);
-
-        Flash::success('Department updated successfully.');
-
-        return redirect(route('departments.index'));
     }
 
     /**
@@ -137,17 +199,16 @@ class DepartmentController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $department = $this->departmentRepository->find($id);
+        $delete_department= Department::findOrfail($request->department_id);
+        $delete_department->delete();
 
         if (empty($department)) {
             Flash::error('Department not found');
 
             return redirect(route('departments.index'));
         }
-
-        $this->departmentRepository->delete($id);
 
         Flash::success('Department deleted successfully.');
 
